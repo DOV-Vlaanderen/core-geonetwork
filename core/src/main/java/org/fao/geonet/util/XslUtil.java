@@ -52,6 +52,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpHead;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.fao.geonet.ApplicationContextHolder;
+import org.fao.geonet.SystemInfo;
 import org.fao.geonet.constants.Geonet;
 import org.fao.geonet.domain.User;
 import org.fao.geonet.kernel.DataManager;
@@ -164,6 +165,10 @@ public final class XslUtil {
             }
         }
         return "";
+    }
+
+    public static String getBuildNumber() {
+        return ApplicationContextHolder.get().getBean(SystemInfo.class).getScmRevision();
     }
 
     /**
@@ -730,6 +735,10 @@ public final class XslUtil {
 
     public static String encodeForJavaScript(String str) {
         return DefaultEncoder.getInstance().encodeForJavaScript(str);
+    }
+
+    public static String encodeForHTML(String str) {
+        return DefaultEncoder.getInstance().encodeForHTML(str);
     }
 
     public static String md5Hex(String str) {

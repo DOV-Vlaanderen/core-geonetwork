@@ -65,10 +65,10 @@
             'eng': 'en',
             'dut': 'nl',
             'fre': 'fr',
-            'ger': 'ge',
+            'ger': 'de',
             'kor': 'ko',
             'spa': 'es',
-            'cze': 'cz',
+            'cze': 'cs',
             'cat': 'ca',
             'fin': 'fi',
             'ice': 'is',
@@ -89,6 +89,7 @@
             'hitsPerPage': 20
           },
           'facetsSummaryType': 'details',
+          'defaultSearchString': '',
           'facetTabField': '',
           'facetConfig': [
             // {
@@ -151,6 +152,13 @@
         'map': {
           'enabled': true,
           'appUrl': '../../srv/{{lang}}/catalog.search#/map',
+          'externalViewer': {
+            'enabled': false,
+            'baseUrl': 'http://www.example.com/viewer',
+            'urlTemplate': 'http://www.example.com/viewer?url={service.url}&type=${service.type}&layer=${service.name}',
+            'openNewWindow': false,
+            'valuesSeparator': ','
+          },
           'is3DModeAllowed': true,
           'isSaveMapInCatalogAllowed': true,
           'isExportMapAsImageEnabled': false,
@@ -171,6 +179,7 @@
             'processes': false,
             'addLayers': false,
             'layers': false,
+            'legend': false,
             'filter': false,
             'contexts': false,
             'print': false,
@@ -262,7 +271,7 @@
         gnViewerSettings.bingKey = this.gnCfg.mods.map.bingKey;
         gnViewerSettings.defaultContext =
           gnViewerSettings.mapConfig['map-viewer'].context;
-        gnViewerSettings.geocoder = this.gnCfg.mods.geocoder.appUrl;
+        gnViewerSettings.geocoder = this.gnCfg.mods.geocoder.appUrl || defaultConfig.mods.geocoder.appUrl;
       },
       getDefaultConfig: function() {
         return angular.copy(defaultConfig);

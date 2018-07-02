@@ -85,6 +85,7 @@ import org.fao.geonet.GeonetContext;
 import org.fao.geonet.Util;
 import org.fao.geonet.constants.Edit;
 import org.fao.geonet.constants.Geonet;
+import org.fao.geonet.domain.AbstractMetadata;
 import org.fao.geonet.domain.ISODate;
 import org.fao.geonet.domain.Metadata;
 import org.fao.geonet.domain.MetadataSourceInfo;
@@ -116,7 +117,6 @@ import org.jdom.JDOMException;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.io.WKTReader;
 
@@ -647,7 +647,7 @@ public class LuceneSearcher extends MetaSearcher implements MetadataRecordSelect
         elSummary.setAttribute("count", tfc.getTotalHits() + "");
         elSummary.setAttribute("type", "local");
         LOGGER.debug(" Get top docs from {} ... {} (total: {})", new Object[] {startHit, endHit, tfc.getTotalHits()});
-        TopDocs tdocs = tfc.topDocs(startHit, endHit);
+        TopDocs tdocs = tfc.topDocs(startHit, endHit - startHit);
 
         return Pair.read(tdocs, elSummary);
     }
@@ -1687,9 +1687,9 @@ public class LuceneSearcher extends MetaSearcher implements MetadataRecordSelect
     /**
      * <p> Gets all metadata info as a int Map in current searcher. </p>
      */
-    public Map<Integer, Metadata> getAllMdInfo(ServiceContext context, int maxHits) throws Exception {
+    public Map<Integer, AbstractMetadata> getAllMdInfo(ServiceContext context, int maxHits) throws Exception {
 
-        Map<Integer, Metadata> response = new HashMap<Integer, Metadata>();
+        Map<Integer, AbstractMetadata> response = new HashMap<Integer, AbstractMetadata>();
         TopDocs tdocs = performQuery(context, 0, maxHits, false);
         IndexAndTaxonomy indexAndTaxonomy = _sm.getIndexReader(_language.presentationLanguage, _versionToken);
         _versionToken = indexAndTaxonomy.version;

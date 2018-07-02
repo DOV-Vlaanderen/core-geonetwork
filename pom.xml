@@ -29,7 +29,7 @@
   <groupId>org.geonetwork-opensource</groupId>
   <artifactId>geonetwork</artifactId>
   <packaging>pom</packaging>
-  <version>3.4.2-0</version>
+  <version>3.5.0-SNAPSHOT</version>
   <name>GeoNetwork opensource</name>
   <description>GeoNetwork opensource is a standards based, Free and
     Open Source catalog application to manage spatially referenced
@@ -1229,10 +1229,13 @@
   </profiles>
 
   <distributionManagement>
+    <repository>
+      <id>release</id>
+      <url>${acd.repository.release.url}</url>
+    </repository>
     <snapshotRepository>
-      <id>scp-repository.geonetwork-opensource.org</id>
-      <name>GeoNetwork opensource repositories</name>
-      <url>scpexe://TO DEFINED</url>
+      <id>snapshot</id>
+      <url>${acd.repository.snapshot.url}</url>
     </snapshotRepository>
   </distributionManagement>
 
@@ -1326,7 +1329,10 @@
     <maven.build.timestamp.format>yyyy-MM-dd'T'HH'\:'mm'\:'ssZ</maven.build.timestamp.format>
     <build.timestamp>${maven.build.timestamp}</build.timestamp>
     <rootProjectDir>..</rootProjectDir>
+
     <wro.version>1.7.7</wro.version>
+    <wro.debug>false</wro.debug>
+
     <node.version>v8.11.1</node.version>
     <npm.version>5.8.0</npm.version>
     <xmlunit.version>2.1.1</xmlunit.version>
@@ -1338,5 +1344,14 @@
     <slf4j.version>1.7.7</slf4j.version>
     <xbean.version>3.18</xbean.version>
     <httpcomponents.version>4.4.1</httpcomponents.version>
+    <gn.schemas.version>3.5</gn.schemas.version>
+
+    <acd.issueManagement.url>https://www.milieuinfo.be/jira</acd.issueManagement.url>
+    <acd.ciManagement.system>Bamboo</acd.ciManagement.system>
+    <acd.ciManagement.url>https://www.milieuinfo.be/bamboo</acd.ciManagement.url>
+    <acd.repository.url>https://www.milieuinfo.be/artifactory</acd.repository.url>
+    <acd.repository.snapshot.url>${acd.repository.url}/snapshot</acd.repository.snapshot.url>
+    <acd.repository.release.url>${acd.repository.url}/release</acd.repository.release.url>
+    <acd.scm.maven-url>scm:svn:https://svn.milieuinfo.be/productie/svn</acd.scm.maven-url>
   </properties>
 </project>

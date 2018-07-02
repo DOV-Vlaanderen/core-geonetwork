@@ -112,12 +112,13 @@
     'gnOwsContextService',
     'hotkeys',
     'gnGlobalSettings',
+    'gnExternalViewer',
     function($scope, $location, $filter,
              suggestService, $http, $translate,
              gnUtilityService, gnSearchSettings, gnViewerSettings,
              gnMap, gnMdView, mdView, gnWmsQueue,
              gnSearchLocation, gnOwsContextService,
-             hotkeys, gnGlobalSettings) {
+             hotkeys, gnGlobalSettings, gnExternalViewer) {
 
       var viewerMap = gnSearchSettings.viewerMap;
       var searchMap = gnSearchSettings.searchMap;
@@ -129,7 +130,9 @@
       $scope.gnWmsQueue = gnWmsQueue;
       $scope.$location = $location;
       $scope.activeTab = '/home';
+      $scope.listOfResultTemplate = gnGlobalSettings.gnCfg.mods.search.resultViewTpls;
       $scope.resultTemplate = gnSearchSettings.resultTemplate;
+      $scope.advandedSearchTemplate = gnSearchSettings.advancedSearchTemplate;
       $scope.facetsSummaryType = gnSearchSettings.facetsSummaryType;
       $scope.facetConfig = gnSearchSettings.facetConfig;
       $scope.facetTabField = gnSearchSettings.facetTabField;
@@ -138,6 +141,7 @@
         $(searchMap.getTargetElement()).toggle();
         $('button.gn-minimap-toggle > i').toggleClass('fa-angle-double-left fa-angle-double-right');
       };
+      $scope.isExternalViewerEnabled = gnExternalViewer.isEnabled();
       hotkeys.bindTo($scope)
         .add({
             combo: 'h',
@@ -279,6 +283,20 @@
             config.name = link.title;
           }
 
+          // if an external viewer is defined, use it here
+          if (gnExternalViewer.isEnabled()) {
+            gnExternalViewer.viewService({
+              id: md ? md.getId() : null,
+              uuid: config.uuid
+            }, {
+              type: config.type,
+              url: config.url,
+              name: config.name,
+              title: link.title
+            });
+            return;
+          }
+
           // This is probably only a service
           // Open the add service layer tab
           $location.path('map').search({
@@ -335,7 +353,7 @@
           sortBy: gnSearchSettings.sortBy || 'relevance'
         },
         params: {
-          'facet.q': '',
+          'facet.q': gnSearchSettings.defaultSearchString || '',
           resultType: gnSearchSettings.facetsSummaryType || 'details',
           sortBy: gnSearchSettings.sortBy || 'relevance'
         },

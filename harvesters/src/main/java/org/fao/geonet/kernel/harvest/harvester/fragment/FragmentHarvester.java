@@ -23,34 +23,6 @@
 
 package org.fao.geonet.kernel.harvest.harvester.fragment;
 
-import com.google.common.base.Optional;
-
-import jeeves.server.context.ServiceContext;
-import jeeves.xlink.Processor;
-
-import org.fao.geonet.GeonetContext;
-import org.fao.geonet.Logger;
-import org.fao.geonet.constants.Geonet;
-import org.fao.geonet.domain.Metadata;
-import org.fao.geonet.domain.MetadataCategory;
-import org.fao.geonet.domain.MetadataType;
-import org.fao.geonet.domain.OperationAllowedId_;
-import org.fao.geonet.exceptions.BadXmlResponseEx;
-import org.fao.geonet.kernel.DataManager;
-import org.fao.geonet.kernel.UpdateDatestamp;
-import org.fao.geonet.kernel.harvest.BaseAligner;
-import org.fao.geonet.kernel.harvest.harvester.CategoryMapper;
-import org.fao.geonet.kernel.harvest.harvester.GroupMapper;
-import org.fao.geonet.kernel.harvest.harvester.Privileges;
-import org.fao.geonet.kernel.setting.SettingInfo;
-import org.fao.geonet.repository.MetadataCategoryRepository;
-import org.fao.geonet.repository.MetadataRepository;
-import org.fao.geonet.repository.OperationAllowedRepository;
-import org.fao.geonet.utils.Xml;
-import org.jdom.Document;
-import org.jdom.Element;
-import org.jdom.Namespace;
-
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -63,6 +35,35 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import org.fao.geonet.GeonetContext;
+import org.fao.geonet.Logger;
+import org.fao.geonet.constants.Geonet;
+import org.fao.geonet.domain.AbstractMetadata;
+import org.fao.geonet.domain.Metadata;
+import org.fao.geonet.domain.MetadataCategory;
+import org.fao.geonet.domain.MetadataType;
+import org.fao.geonet.domain.OperationAllowedId_;
+import org.fao.geonet.exceptions.BadXmlResponseEx;
+import org.fao.geonet.kernel.DataManager;
+import org.fao.geonet.kernel.UpdateDatestamp;
+import org.fao.geonet.kernel.datamanager.IMetadataUtils;
+import org.fao.geonet.kernel.harvest.BaseAligner;
+import org.fao.geonet.kernel.harvest.harvester.CategoryMapper;
+import org.fao.geonet.kernel.harvest.harvester.GroupMapper;
+import org.fao.geonet.kernel.harvest.harvester.Privileges;
+import org.fao.geonet.kernel.setting.SettingInfo;
+import org.fao.geonet.repository.MetadataCategoryRepository;
+import org.fao.geonet.repository.OperationAllowedRepository;
+import org.fao.geonet.utils.Xml;
+import org.jdom.Document;
+import org.jdom.Element;
+import org.jdom.Namespace;
+
+import com.google.common.base.Optional;
+
+import jeeves.server.context.ServiceContext;
+import jeeves.xlink.Processor;
+
 //=============================================================================
 
 /**
@@ -72,47 +73,20 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class FragmentHarvester extends BaseAligner {
 
-    //---------------------------------------------------------------------------
-
     static private final Namespace xlink = Namespace.getNamespace("xlink", "http://www.w3.org/1999/xlink");
 
-    //---------------------------------------------------------------------------
     private static final String REPLACEMENT_GROUP = "replacementGroup";
-
-    //---------------------------------------------------------------------------
     private Logger log;
-
-    //---------------------------------------------------------------------------
     private ServiceContext context;
-
-    //---------------------------------------------------------------------------
     private DataManager dataMan;
-
-    //---------------------------------------------------------------------------
     private FragmentParams params;
-
-    //---------------------------------------------------------------------------
     private String metadataGetService;
-
-    //---------------------------------------------------------------------------
     private List<Namespace> metadataTemplateNamespaces = new ArrayList<Namespace>();
-
-    //---------------------------------------------------------------------------
     private Set<String> templateIdAtts = new HashSet<String>();
-
-    //---------------------------------------------------------------------------
     private Element metadataTemplate;
-
-    //---------------------------------------------------------------------------
     private String harvestUri;
-
-    //---------------------------------------------------------------------------
     private CategoryMapper localCateg;
-
-    //---------------------------------------------------------------------------
     private GroupMapper localGroups;
-
-    //---------------------------------------------------------------------------
     private HarvestSummary harvestSummary;
 
     //---------------------------------------------------------------------------
@@ -409,7 +383,8 @@ public class FragmentHarvester extends BaseAligner {
         //
         // insert metadata
         //
-        Metadata metadata = new Metadata().setUuid(uuid);
+        AbstractMetadata metadata = new Metadata();
+        metadata.setUuid(uuid);
         metadata.getDataInfo().
             setSchemaId(schema).
             setRoot(md.getQualifiedName()).
@@ -598,8 +573,8 @@ public class FragmentHarvester extends BaseAligner {
 
         int iId = Integer.parseInt(id);
 
-        final MetadataRepository metadataRepository = context.getBean(MetadataRepository.class);
-        Metadata metadata = metadataRepository.findOne(iId);
+        final IMetadataUtils metadataRepository = context.getBean(IMetadataUtils.class);
+        AbstractMetadata metadata = metadataRepository.findOne(iId);
         OperationAllowedRepository repository = context.getBean(OperationAllowedRepository.class);
         repository.deleteAllByIdAttribute(OperationAllowedId_.metadataId, iId);
 
@@ -638,7 +613,8 @@ public class FragmentHarvester extends BaseAligner {
         //
         // insert metadata
         //
-        Metadata metadata = new Metadata().setUuid(recUuid);
+        AbstractMetadata metadata = new Metadata();
+        metadata.setUuid(recUuid);
         metadata.getDataInfo().
             setSchemaId(params.outputSchema).
             setRoot(template.getQualifiedName()).
