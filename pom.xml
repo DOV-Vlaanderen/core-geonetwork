@@ -1348,6 +1348,7 @@
     <acd.repository.url>https://www.milieuinfo.be/artifactory</acd.repository.url>
     <acd.repository.snapshot.url>${acd.repository.url}/snapshot</acd.repository.snapshot.url>
     <acd.repository.release.url>${acd.repository.url}/release</acd.repository.release.url>
+    <gn.schemas.version>3.4</gn.schemas.version>
     <acd.scm.maven-url>scm:svn:https://svn.milieuinfo.be/productie/svn</acd.scm.maven-url>
   </properties>
 </project>
