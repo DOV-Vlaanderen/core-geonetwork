@@ -636,7 +636,7 @@
         <version>${geotools.version}</version>
         <exclusions>
           <exclusion>
-					<!-- org.apache.xml:xml-commons-resolver:jar:1.2 -->
+            <!-- org.apache.xml:xml-commons-resolver:jar:1.2 -->
             <groupId>org.apache.xml</groupId>
             <artifactId>xml-commons-resolver</artifactId>
           </exclusion>
@@ -1229,10 +1229,13 @@
   </profiles>
 
   <distributionManagement>
+    <repository>
+      <id>release</id>
+      <url>${acd.repository.release.url}</url>
+    </repository>
     <snapshotRepository>
-      <id>scp-repository.geonetwork-opensource.org</id>
-      <name>GeoNetwork opensource repositories</name>
-      <url>scpexe://TO DEFINED</url>
+      <id>snapshot</id>
+      <url>${acd.repository.snapshot.url}</url>
     </snapshotRepository>
   </distributionManagement>
 
@@ -1338,6 +1341,13 @@
     <slf4j.version>1.7.7</slf4j.version>
     <xbean.version>3.18</xbean.version>
     <httpcomponents.version>4.4.1</httpcomponents.version>
-    <gn.schemas.version>3.4</gn.schemas.version>
+
+    <acd.issueManagement.url>https://www.milieuinfo.be/jira</acd.issueManagement.url>
+    <acd.ciManagement.system>Bamboo</acd.ciManagement.system>
+    <acd.ciManagement.url>https://www.milieuinfo.be/bamboo</acd.ciManagement.url>
+    <acd.repository.url>https://www.milieuinfo.be/artifactory</acd.repository.url>
+    <acd.repository.snapshot.url>${acd.repository.url}/snapshot</acd.repository.snapshot.url>
+    <acd.repository.release.url>${acd.repository.url}/release</acd.repository.release.url>
+    <acd.scm.maven-url>scm:svn:https://svn.milieuinfo.be/productie/svn</acd.scm.maven-url>
   </properties>
 </project>
