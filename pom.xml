@@ -1229,10 +1229,13 @@
   </profiles>
 
   <distributionManagement>
+    <repository>
+      <id>release</id>
+      <url>${acd.repository.release.url}</url>
+    </repository>
     <snapshotRepository>
-      <id>scp-repository.geonetwork-opensource.org</id>
-      <name>GeoNetwork opensource repositories</name>
-      <url>scpexe://TO DEFINED</url>
+      <id>snapshot</id>
+      <url>${acd.repository.snapshot.url}</url>
     </snapshotRepository>
   </distributionManagement>
 
