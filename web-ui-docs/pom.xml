@@ -105,5 +105,28 @@
       </plugin>
     </plugins>
   </build>
-
+  <profiles>
+    <profile>
+      <id>bamboo</id>
+      <build>
+        <pluginManagement>
+          <plugins>
+            <plugin>
+              <groupId>com.github.eirslett</groupId>
+              <artifactId>frontend-maven-plugin</artifactId>
+              <configuration>
+                <environmentVariables>
+                  <https_proxy>http://forwardproxy-pr-build.lb.cumuli.be:3128/</https_proxy>
+                  <http_proxy>http://forwardproxy-pr-build.lb.cumuli.be:3128/</http_proxy>
+                  <no_proxy>cumuli.be,mmis.be,localhost</no_proxy>
+                </environmentVariables>
+                <nodeDownloadRoot>${acd.repository.node.dist.url}</nodeDownloadRoot>
+                <npmDownloadRoot>${acd.repository.npm.dist.url}</npmDownloadRoot>
+              </configuration>
+            </plugin>
+          </plugins>
+        </pluginManagement>
+      </build>
+    </profile>
+  </profiles>
 </project>
