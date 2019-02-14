@@ -237,7 +237,7 @@ class Harvester implements IHarvester<HarvestResult> {
 
         request.setResultType(ResultType.RESULTS);
         //request.setOutputSchema(OutputSchema.OGC_CORE);	// Use default value
-        request.setElementSetName(ElementSetName.SUMMARY);
+        request.setElementSetName(ElementSetName.FULL);
         request.setMaxRecords(GETRECORDS_REQUEST_MAXRECORDS);
         request.setDistribSearch(params.queryScope.equalsIgnoreCase("distributed"));
         request.setHopCount(params.hopCount);
