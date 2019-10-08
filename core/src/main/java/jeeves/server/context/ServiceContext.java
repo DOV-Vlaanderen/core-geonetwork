@@ -169,8 +169,8 @@ public class ServiceContext extends BasicContext {
      *
      * @return the user session stored on httpsession
      */
-    public UserSession getUserSession() {
-        return _userSession;
+    public UserSession getUserSession() {;
+        return _userSession == null ? _userSession = new UserSession() : _userSession;
     }
 
     public void setUserSession(final UserSession session) {
