@@ -349,7 +349,7 @@ public class ServiceManager {
 
         context.setBaseUrl(baseUrl);
         context.setLanguage("?");
-        context.setUserSession(null);
+        //context.setUserSession(null);
         context.setIpAddress("?");
         context.setMaxUploadSize(maxUploadSize);
         context.setServlet(servlet);
