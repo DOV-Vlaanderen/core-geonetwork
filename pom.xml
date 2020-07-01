@@ -29,7 +29,7 @@
   <groupId>org.geonetwork-opensource</groupId>
   <artifactId>geonetwork</artifactId>
   <packaging>pom</packaging>
-  <version>3.10.2-0</version>
+  <version>3.10.2-dov-1.0-SNAPSHOT</version>
   <name>GeoNetwork opensource</name>
   <description>GeoNetwork opensource is a standards based, Free and
     Open Source catalog application to manage spatially referenced
@@ -1213,6 +1213,14 @@
       <name>Developer k-int repository</name>
       <url>http://maven.k-int.com/content/repositories/releases/</url>
     </repository>
+    <repository>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>ucar</id>
+      <name>unidata.ucar.edu</name>
+      <url>https://artifacts.unidata.ucar.edu/content/repositories/unidata-releases/</url>
+    </repository>
 
 
     <repository>
@@ -1230,7 +1238,7 @@
     <repository>
       <id>mvnrepository.com</id>
       <name>Repository that has juniversalchardet</name>
-      <url>http://mvnrepository.com/artifact</url>
+      <url>https://mvnrepository.com/artifact</url>
     </repository>
     <repository>
       <id>maven.geo-solutions.it</id>
