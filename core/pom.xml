@@ -405,6 +405,17 @@
       </exclusions>
     </dependency>
 
+   <dependency>
+      <groupId>net.jcip</groupId>
+      <artifactId>jcip-annotations</artifactId>
+      <version>1.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.itextpdf</groupId>
+      <artifactId>itextpdf</artifactId>
+      <version>5.5.13</version>
+    </dependency>
+
     <!-- ====================== -->
     <!-- Generated dependencies -->
     <dependency>
